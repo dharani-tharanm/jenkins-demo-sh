@@ -2,27 +2,27 @@ pipeline {
     agent any // This runs the pipeline on any available agent/node
 
     stages {
-        stage('Build') {
+        stage('Restore') {
             steps {
-                echo 'Building the project...'
-                sh 'mvn clean package' // Example Maven build step
+                echo 'Building (restore) the project...'
+                sh 'dotnet restore'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Running tests...'
-                sh 'mvn test' // Example Maven test step
+                echo 'Building tests...'
+                sh 'dotnet build' // Example Maven test step
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline succeeded! Yay!'
+            echo 'Pipeline  for CI succeeded! Yay!'
             // Additional actions on success, if any
         }
         failure {
-            echo 'Pipeline failed! :('
+            echo 'Pipeline for CI failed! :('
             // Additional actions on failure, if any
         }
     }
